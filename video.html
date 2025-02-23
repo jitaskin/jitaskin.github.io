@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Video Player</title>
+    <!-- Plyr CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+        }
+        
+    
+   .plyr__video-embed{
+      width: 100%;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      pointer-events: none;
+    }
+    
+    
+    .plyr__video-embed iframe{
+      border: none;
+      width: 900%;
+      height: 100%;
+      margin-left: -400%;
+    }
+    
+    </style>
+</head>
+<body>
+    
+    
+    <div class="container">
+        
+        <!-- Plyr Video Embed -->
+        <div class="plyr__video-embed" id="player">
+            <iframe
+                src="https://www.youtube.com/embed/_dz6eD-UksM?autoplay=0&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3"
+                allowfullscreen
+                allow="autoplay; encrypted-media; picture-in-picture"
+                title="Custom Video Player">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Plyr JS -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script>
+        // Plyr Player Initialization
+        const player = new Plyr('#player', {
+            controls: [ 'play-large', 'rewind', 'play', 'fast-forward', 'current-time', 'progress', 'duration', 'settings', 'fullscreen'],
+            
+        });
+    </script>
+    
+    
+</body>
+  </html>
