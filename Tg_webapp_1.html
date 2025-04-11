@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Telegram Only WebApp</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 50px;
+    }
+    #user-info {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      display: none;
+    }
+    #error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Telegram WebApp Demo</h1>
+  <div id="user-info">
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>Username:</strong> <span id="username"></span></p>
+    <p><strong>User ID:</strong> <span id="user_id"></span></p>
+  </div>
+  <p id="error"></p>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const tg = window.Telegram.WebApp;
+
+    if (!tg.initData || tg.initData === '') {
+      document.getElementById("error").innerText = "এই অ্যাপটা শুধু Telegram এর ভেতরে চালানো যাবে!";
+    } else {
+      tg.ready();
+
+      const user = tg.initDataUnsafe.user;
+
+      document.getElementById("name").innerText = `${user.first_name} ${user.last_name || ''}`;
+      document.getElementById("username").innerText = user.username || 'No username';
+      document.getElementById("user_id").innerText = user.id;
+
+      document.getElementById("user-info").style.display = "block";
+    }
+  </script>
+</body>
+</html>
