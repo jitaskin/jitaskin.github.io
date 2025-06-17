@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting to Taskin's New Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script>
+    let timeLeft = 10;
+    const newURL = "https://taskin.pages.dev"; 
+
+    function updateCountdown() {
+      const countdown = document.getElementById("countdown");
+      countdown.textContent = timeLeft + " second(s)";
+      if (timeLeft === 0) {
+        window.location.href = newURL;
+      }
+      timeLeft--;
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(newURL).then(() => {
+        const msg = document.getElementById("copied-msg");
+        msg.style.opacity = 1;
+        setTimeout(() => {
+          msg.style.opacity = 0;
+        }, 2000);
+      });
+    }
+
+    setInterval(updateCountdown, 1000);
+    window.onload = function () {
+      updateCountdown();
+    };
+  </script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #1e88e5;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    strong.copy-link {
+      color: #02b6ed;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    strong.copy-link:hover {
+      color: #8302ed;
+    }
+
+    button.button {
+      margin-top: 15px;
+      padding: 12px 24px;
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.button:hover {
+      background-color: #1565c0;
+    }
+
+    .timer {
+      font-size: 18px;
+      color: #555;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 16px;
+      color: #888;
+      white-space: pre-line;
+    }
+
+    #copied-msg {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: green;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>I've Moved! 🚀</h1>
+    <p>My website has moved to a new address.
+      <br> <br>
+<strong title="Click to copy" class="copy-link" onclick="copyLink()" role="button" tabindex="0">https://taskin.pages.dev</strong>
+    </p>
+    
+    <br> <br>
+    
+    <p>You will be redirected in <span class="timer" id="countdown">10 seconds</span></p>
+
+    <button class="button" onclick="window.open('https://taskin.pages.dev', '_blank')">Go to New Website Now</button>
+
+    <div id="copied-msg">🔗 Link copied to clipboard!</div>
+
+    <div class="footer">
+      Thank you 🥰<br>- Taskin
+    </div>
+  </div>
+</body>
+</html>
