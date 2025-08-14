@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>xyz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      outline: none;
+      margin-bottom: 10px;
+      transition: 0.3s;
+    }
+    input:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 5px rgba(74, 144, 226, 0.6);
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4a90e2;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #357ABD;
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1>Reverse Text</h1>
+  
+  <input type="text" id="vid" placeholder="Write something...">
+  <button onclick="reverse()">Enter</button> 
+  <div class="result">
+    Reversed form: <br> <br> <span id="reversed_vid"></span>
+  </div>
+  
+  <script>
+    function reverse() {
+      let xyz = document.getElementById("vid").value;
+      document.getElementById("reversed_vid").innerHTML = vid(xyz);
+    }
+    function vid(text) {
+      return text.split('').reverse().join('');
+    }
+  </script>  
+</body>
+</html>
