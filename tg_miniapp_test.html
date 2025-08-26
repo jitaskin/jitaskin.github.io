@@ -3,42 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Mini App</title>
+<title>T</title>
 </head>
 <body>
-<h1>Checking your Telegram Channel Access...</h1>
+
+  
 <div id="status">Loading...</div>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
 const tg = window.Telegram.WebApp;
-tg.expand(); // Fullscreen mode
 
-// Telegram gives initData
-const initData = tg.initData;
-const userId = tg.initDataUnsafe.user?.id; // direct id
-
-// Worker API URL
-const API_URL = "https://tg-api-1.jit20.workers.dev";
-
-// Send request to Worker
-fetch(`${API_URL}?initData=${encodeURIComponent(initData)}&user_id=${userId}`)
-  .then(res => res.json())
-  .then(data => {
-    const statusDiv = document.getElementById("status");
-    if (data.success) {
-      if (data.member) {
-        statusDiv.innerText = "✅ You are a member of the channel!";
-      } else {
-        statusDiv.innerText = "❌ You are NOT a member of the channel.";
-      }
+    if (!tg.initData || tg.initData === '') {
+			 //if not from tg miniapp 
+				
+      
     } else {
-      statusDiv.innerText = "⚠️ Error: " + (data.error || data.reason);
+      tg.ready();
+      tg.expand();
+
+      const user = tg.initDataUnsafe.user;
+
+				const tg_user_first_name = user.first_name;
+      	const tg_user_last_name = user.last_name;
+      	const tg_username = user.username;
+				const tg_user_id = user.id;
+      
+      
     }
-  })
-  .catch(err => {
-    document.getElementById("status").innerText = "⚠️ Network Error: " + err.message;
-  });
 </script>
 </body>
 </html>
