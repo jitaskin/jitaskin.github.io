@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Simple TG API Checker</title>
+</head>
+<body>
+  <h2>🔎 Simple TG API Checker</h2>
+  <button onclick="checkApi()">Check API</button>
+  <pre id="result">No request yet.</pre>  <script>
+    async function checkApi(){
+      const url = "https://tg-api-1.jit20.workers.dev?user_id=60626017";
+      const resultEl = document.getElementById("result");
+      resultEl.textContent = "Loading...";
+      try {
+        const res = await fetch(url);
+        const text = await res.text();
+        try {
+          const json = JSON.parse(text);
+          resultEl.textContent = JSON.stringify(json, null, 2);
+        } catch(e){
+          resultEl.textContent = text;
+        }
+      } catch(err){
+        resultEl.textContent = "❌ Network Error: " + err.message;
+      }
+    }
+  </script></body>
+</html>
