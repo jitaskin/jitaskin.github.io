@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TG MiniApp Check Member</title>
+</head>
+<body>
+  <h2>🔍 Checking Telegram Membership...</h2>
+  <div id="status">Loading...</div>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // screen expand করে দিবে
+
+    const statusEl = document.getElementById("status");
+
+    // ✅ Step 1: চেক করবো ইউজার Telegram MiniApp থেকে এসেছে কিনা
+    if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
+      statusEl.innerText = "❌ Error: Please open this app inside Telegram.";
+    } else {
+      const user = tg.initDataUnsafe.user;
+      const userId = user.id;
+
+      statusEl.innerText = `👤 User detected: ${user.first_name} (${userId}) \nChecking group membership...`;
+
+      // ✅ Step 2: API call করা
+      fetch(`https://tg-api-1.jit20.workers.dev?user_id=${userId}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          // ✅ Step 3: Response handle করা
+          if (data.error) {
+            statusEl.innerText = `⚠️ Error: ${data.error}`;
+          } else if (data.success === false && data.reason) {
+            statusEl.innerText = `❌ Telegram API Error: ${data.reason}`;
+          } else if (data.success === true && data.member === true) {
+            statusEl.innerText = `✅ Congrats ${user.first_name}, তুমি গ্রুপের member! 🎉`;
+          } else if (data.success === true && data.member === false) {
+            statusEl.innerText = `🚫 Sorry ${user.first_name}, তুমি এখনো গ্রুপে join করো নি।`;
+          } else if (data.success === false && data.error) {
+            statusEl.innerText = `🔥 Server Error: ${data.error}`;
+          } else {
+            statusEl.innerText = "🤔 Unexpected response!";
+          }
+        })
+        .catch(err => {
+          statusEl.innerText = `💥 Network Error: ${err.message}`;
+        });
+    }
+  </script>
+</body>
+</html>
