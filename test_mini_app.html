@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telegram MiniApp - Check Class</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  input { padding: 10px; width: 200px; margin-right: 10px; }
+  button { padding: 10px; }
+  pre { background: #f0f0f0; padding: 10px; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h2>Check Class Data</h2>
+<input id="clsId" placeholder="Enter cls_id">
+<button id="checkBtn">Check</button>
+
+<pre id="output"></pre>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+const output = document.getElementById('output');
+const clsInput = document.getElementById('clsId');
+const checkBtn = document.getElementById('checkBtn');
+
+checkBtn.addEventListener('click', async () => {
+    const cls_id = clsInput.value.trim();
+    if (!cls_id) {
+        output.textContent = "Please enter cls_id";
+        return;
+    }
+
+    // Telegram থেকে initData
+    const initData = tg.initData;
+
+    // তোমার Worker URL
+    const workerUrl = 'https://tg-api-1.jit20.workwrs.dev';
+
+    try {
+        const res = await fetch(`${workerUrl}?user_id=${tg.initDataUnsafe.user.id}&cls_id=${cls_id}&initData=${encodeURIComponent(initData)}`);
+        const data = await res.json();
+        output.textContent = JSON.stringify(data, null, 2);
+    } catch (err) {
+        output.textContent = "Error: " + err.message;
+    }
+});
+</script>
+
+</body>
+</html>
