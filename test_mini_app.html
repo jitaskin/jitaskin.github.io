@@ -35,16 +35,21 @@ checkBtn.addEventListener('click', async () => {
         return;
     }
 
-    // Telegram থেকে initData
     const initData = tg.initData;
+    const user_id = tg.initDataUnsafe.user.id;
 
-    // তোমার Worker URL
-    const workerUrl = 'https://tg-api-1.jit20.workwrs.dev';
+    const workerUrl = 'https://your-worker.example.com'; // তোমার Worker URL
 
     try {
-        const res = await fetch(`${workerUrl}?user_id=${tg.initDataUnsafe.user.id}&cls_id=${cls_id}&initData=${encodeURIComponent(initData)}`);
+        const res = await fetch(workerUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id, cls_id, initData })
+        });
+
         const data = await res.json();
         output.textContent = JSON.stringify(data, null, 2);
+
     } catch (err) {
         output.textContent = "Error: " + err.message;
     }
