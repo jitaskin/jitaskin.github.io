@@ -32,12 +32,12 @@ checkBtn.addEventListener('click', async () => {
     const cls_id = clsInput.value.trim();
     if (!cls_id) {
         output.textContent = "Please enter cls_id";
-        return;
+        return;com'
     }
 
-    const initData = tg.initData;                  // Telegram initData
-    const user_id = tg.initDataUnsafe.user.id;    // Telegram user ID
-    const workerUrl = 'https://tg-api-1.jit20.workers.dev';// তোমার Worker URL
+    const initData = tg.initData;
+    const user_id = tg.initDataUnsafe.user.id;
+    const workerUrl = 'https://tg-api-1.jit20.workers.dev'; // Worker URL
 
     try {
         const res = await fetch(workerUrl, {
